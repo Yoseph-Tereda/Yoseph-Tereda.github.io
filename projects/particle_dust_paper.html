@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Particle Pair Diffusion of Inertial Particles</title>
+
+<!-- MathJax -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$']]
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --card: #f5f5f5;
+  --accent: #0056b3;
+}
+
+body.dark {
+  --bg: #0f1216;
+  --text: #e6e6e6;
+  --card: #1a1f26;
+  --accent: #4da3ff;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* FULL-WIDTH HEADER */
+header {
+  padding: 40px 20px 20px;
+  width: 100%;
+  text-align: center;
+  background: #2e8b57;
+}
+
+header h1 {
+  max-width: 1000px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin-top: 40px;
+  color: var(--accent);
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* FULL-WIDTH SECTIONS */
+section {
+  width: 100%;
+  padding: 20px;
+}
+
+/* CENTER CONTENT */
+.section-left {
+  max-width: none;          /* break out of centered column */
+  margin-left: 20px;        /* align with section padding */
+  margin-right: auto;
+  text-align: left;
+}
+
+
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 20px;
+}
+
+.figure {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.caption {
+  font-size: 0.9rem;
+  margin-top: 10px;
+  opacity: 0.85;
+}
+
+.toggle {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+}
+
+.toggle button {
+  background: var(--card);
+  color: var(--text);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.toggle button:hover {
+  opacity: 0.85;
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="toggle">
+  <button onclick="document.body.classList.toggle('dark')">
+    🌙 Dark Mode
+  </button>
+</div>
+
+<header>
+  <h1>Particle Pair Diffusion of Inertial Particles</h1>
+</header>
+
+
+ <h2 class="section-left">Project Overview</h2>
+  <div class="card">
+    <p>
+      The transport and dispersion of inertial particles in turbulent flows
+      is a fundamental problem in geophysical and environmental sciences,
+      with applications ranging from atmospheric dust transport and cloud
+      microphysics to pollutant dispersion.
+    </p>
+    <p>
+      Unlike ideal fluid tracers, inertial particles possess finite mass and
+      respond to the surrounding flow with a delay characterized by a particle
+      response time. This inertia leads to preferential concentration,
+      clustering, and modified diffusion behavior.
+    </p>
+    <p>
+      In this project, we numerically investigate particle pair diffusion in
+      homogeneous turbulence under the Stokes drag approximation. The focus is
+      on understanding how inertia, quantified by the Stokes number, alters the
+      classical Richardson scaling observed for fluid particle pairs.
+    </p>
+
+    <div class="figure">
+      <img src="images/page3_image-2.png" alt="Particle motion in the geosciences: particle-laden flow">
+      <div class="caption">
+        Particle motion in the geosciences: examples of particle-laden flows,
+        including long-range atmospheric dust transport and dense particulate
+        clouds driven by turbulent motion.
+      </div>
+    </div>
+  </div>
+
+
+
+ <h2 class="section-left">Governing Equation</h2>
+  <div class="card">
+    <p>
+      The motion of a small, spherical inertial particle in the Stokes drag
+      limit is governed by the coupled system:
+    </p>
+
+    $$
+    \frac{d\mathbf{x}}{dt} = \mathbf{v}(t),
+    $$
+
+    $$
+    \frac{d\mathbf{v}}{dt} = -\frac{1}{\tau_p}
+    \left( \mathbf{v}(t) - \mathbf{u}(\mathbf{x}, t) \right),
+    $$
+
+    <p>
+      where $\mathbf{x}(t)$ is the particle position, $\mathbf{v}(t)$ is the
+      particle velocity, and $\mathbf{u}(\mathbf{x},t)$ is the turbulent fluid
+      velocity field.
+    </p>
+
+    $$
+    \mathrm{St} = \frac{\tau_p}{\tau_\eta},
+    $$
+
+    <p>
+      where $\tau_\eta$ is the Kolmogorov time scale.
+    </p>
+  </div>
+
+
+  <h2 class="section-left">Numerical Method: Fourth-Order Runge–Kutta</h2>
+  <div class="card">
+    <p>
+      The governing equations are integrated using the classical fourth-order
+      Runge–Kutta (RK4) method, an explicit time-stepping scheme that offers
+      high accuracy and stability for smooth dynamical systems.
+    </p>
+
+    <p>
+      For a general ordinary differential equation $\dot{y} = f(t, y)$, the RK4
+      update from time $t_n$ to $t_{n+1} = t_n + \Delta t$ is given by:
+    </p>
+
+    $$
+    \begin{aligned}
+    k_1 &= f(t_n, y_n), \\
+    k_2 &= f\left(t_n + \tfrac{\Delta t}{2}, y_n + \tfrac{\Delta t}{2}k_1\right), \\
+    k_3 &= f\left(t_n + \tfrac{\Delta t}{2}, y_n + \tfrac{\Delta t}{2}k_2\right), \\
+    k_4 &= f\left(t_n + \Delta t, y_n + \Delta t\,k_3\right), \\
+    y_{n+1} &= y_n + \tfrac{\Delta t}{6}\left(k_1 + 2k_2 + 2k_3 + k_4\right).
+    \end{aligned}
+    $$
+  </div>
+
+
+
+   <h2 class="section-left">Numerical Results</h2>
+  <div class="card" >
+
+    <p>
+      Ensembles of particle trajectories are computed for different Stokes
+      numbers. The primary quantity of interest is the mean square separation
+      $\langle l^2(t) \rangle$, which characterizes particle pair diffusion.
+    </p>
+
+    <div class="figure">
+      <img src="images/page_13_cropped-2.png" alt="Inertial particle pair diffusion scaling">
+      <div class="caption">
+        Scaling behavior of inertial particle pair diffusion for different Stokes numbers and Reynolds numbers, highlighting deviations from classical Richardson scaling.
+      </div>
+    </div>
+
+    <div class="figure">
+      <img src="images/page_14_top10pct_removed-2.png" alt="DNS and KS comparison">
+      <div class="caption">
+        Comparison of particle pair separation growth obtained from Direct Numerical Simulations (DNS) and Kinematic Simulations (KS), showing inertia-dependent diffusion regimes.
+      </div>
+    </div>
+
+    <p>
+      The results reveal distinct dispersion regimes. At early times and small separations,
+      inertia dominates and leads to non-Richardson behavior. At later times, particles
+      gradually recover tracer-like diffusion.
+    </p>
+  </div>
+
+
+
+  
+
+ <h2 class="section-left">Conclusion</h2>
+  <div class="card">
+    
+    <ul>
+       
+      <li>
+        Inertial particle pair diffusion in turbulent flows was investigated using a
+        Lagrangian framework combined with fourth-order Runge–Kutta time integration.
+      </li>
+      <li>
+        Particle inertia significantly modifies dispersion at small scales, leading
+        to deviations from classical Richardson scaling.
+      </li>
+      <li>
+        At larger separations and longer times, particle dynamics gradually approach
+        tracer-like turbulent diffusion.
+      </li>
+      <li>
+        The numerical framework can be extended to include additional forces and more
+        realistic turbulence models in future work.
+      </li>
+    </ul>
+  </div>
+
+
+<footer>
+  © 2025 • Numerical Modeling of Turbulent Inertial Particle Diffusion
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reservoir Outflow Prediction – CNN–BiLSTM</title>
+
+<style>
+    :root {
+        --bg-color: #f7f9fc;
+        --card-bg: #ffffff;
+        --text-color: #222;
+        --header-bg: #003366;
+        --accent: #003366;
+        --code-bg: #eeeeee;
+        --shadow: rgba(0,0,0,0.1);
+    }
+
+    body.dark {
+        --bg-color: #121212;
+        --card-bg: #1e1e1e;
+        --text-color: #e0e0e0;
+        --header-bg: #0a2a4a;
+        --accent: #4da3ff;
+        --code-bg: #2a2a2a;
+        --shadow: rgba(0,0,0,0.6);
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        transition: background 0.3s, color 0.3s;
+    }
+
+    .header {
+        background: var(--header-bg);
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+        position: relative;
+    }
+
+    .toggle-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 8px 14px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        background: white;
+        color: #003366;
+        font-weight: bold;
+        transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark .toggle-btn {
+        background: #333;
+        color: #f5f5f5;
+    }
+
+    .container {
+    width: 100%;
+    margin: 0;
+    padding: 20px 28px;
+}
+
+
+    h2 {
+        color: var(--accent);
+        border-left: 4px solid var(--accent);
+        padding-left: 10px;
+    }
+
+    .section h2 {
+    text-align: left;
+}
+
+    .image-box {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .image-box img {
+    width: 100%;
+    max-width: 600px;   /* 🔹 controls figure size */
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 0 10px var(--shadow);
+}
+
+
+    .code {
+        background: var(--code-bg);
+        padding: 12px;
+        border-radius: 6px;
+        font-family: monospace;
+        overflow-x: auto;
+        transition: background 0.3s;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div class="header">
+    <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+    <h1>Deep Learning for Reservoir Outflow Prediction</h1>
+    <h3>CNN–BiLSTM Hybrid Model</h3>
+</div>
+
+<div class="container">
+
+    <!-- Project Overview -->
+    <div class="section">
+        <h2>Project Overview</h2>
+        <p>
+            This project implements a CNN–BiLSTM deep learning model to predict daily outflow from the Waterton Reservoir in Alberta, Canada. By combining convolutional feature extraction with bidirectional sequence learning, the model effectively learns temporal patterns in long-term hydrological data, demonstrating practical skills in time-series forecasting, deep learning model design, and real-world data analysis.
+        </p>
+        <div class="image-box">
+            <img src="images/page2_image_1.png" alt="Waterton Reservoir in Southern Alberta">
+        </div>
+        <p style="text-align:center; font-size:14px;">
+            Waterton Reservoir in Southern Alberta (study area).
+        </p>
+    </div>
+
+    <!-- Dataset -->
+    <div class="section">
+        <h2>Dataset Description</h2>
+        <p>
+    The dataset consists of real hydrological measurements collected from the Canadian Waterton Reservoir,
+    spanning approximately <strong>21 years</strong> of observations. The data were originally recorded at an
+    <strong>hourly resolution</strong> and include reservoir inflow, elevation, and outflow measurements.
+    After preprocessing, the outflow time-series data were organized into input–output sequences and used
+    to train and evaluate deep learning models for reservoir outflow prediction.
+</p>
+    </div>
+
+    <!-- Tech Stack -->
+    <div class="section">
+        <h2>Tech Stack</h2>
+        <ul>
+            <li>TensorFlow / Keras</li>
+            <li>NumPy, Pandas, Matplotlib</li>
+            <li>Scikit-learn</li>
+            <li>Python 3.10</li>
+            <li>Jupyter Notebook</li>
+        </ul>
+    </div>
+
+    <!-- Model Architecture -->
+    <div class="section">
+        <h2>Model Architecture</h2>
+        <div class="code">
+<pre>
+CNN → MaxPooling → BiLSTM → Dense → Output
+</pre>
+        </div>
+    </div>
+
+    <!-- Model Code -->
+    <div class="section">
+        <h2>Model Code Snippet</h2>
+        <div class="code">
+<pre>
+model = Sequential([
+    Conv1D(64, 3, activation='relu', input_shape=(timesteps, 1)),
+    MaxPooling1D(2),
+    Bidirectional(LSTM(64, return_sequences=False)),
+    Dense(32, activation='relu'),
+    Dense(1)
+])
+</pre>
+        </div>
+    </div>
+
+    <!-- True vs Predicted -->
+    <div class="section">
+        <h2>True vs Predicted Output</h2>
+        <div class="image-box">
+            <img src="images/Figure_2.png" alt="CNN–BiLSTM True vs Predicted">
+        </div>
+        <p style="text-align:center; font-size:14px;">
+            CNN–BiLSTM model performance showing true reservoir outflow versus predicted values.
+        </p>
+        <div class="image-box">
+        <img src="images/Figure_1.png" alt="Advanced BiLSTM Reservoir Outflow Prediction">
+    </div>
+    <p style="text-align:center; font-size:14px;">
+        Advanced BiLSTM reservoir outflow prediction showing true versus predicted time-series behavior.
+    </p>
+    </div>
+
+    <!-- Key Results -->
+    <div class="section">
+        <h2>Key Results</h2>
+        <ul>
+            <li><strong>MAE:</strong> 4.86</li>
+            <li><strong>RMSE:</strong> 8.74</li>
+            <li><strong>R²:</strong> 0.828</li>
+            <li>Significant performance improvement over baseline BiLSTM.</li>
+            <li>Accurate prediction of peak outflow dynamics.</li>
+        </ul>
+    </div>
+
+
+<!-- Conclusion -->
+<div class="section">
+    <h2>Conclusion</h2>
+    <ul>
+        <li>
+            A deep learning framework based on a hybrid CNN–BiLSTM architecture was developed to predict
+            daily reservoir outflow for the Waterton Reservoir in Southern Alberta, Canada.
+        </li>
+        <li>
+            The proposed model successfully captured both short-term fluctuations and long-term temporal
+            dependencies in hydrological time-series data.
+        </li>
+        <li>
+            Model evaluation using MAE, RMSE, and R² demonstrated strong predictive performance and
+            improved accuracy compared to baseline recurrent models.
+        </li>
+        <li>
+            The results indicate that convolutional feature extraction combined with bidirectional sequence
+            learning is effective for complex reservoir outflow forecasting tasks.
+        </li>
+        <li>
+            This approach shows strong potential for supporting reservoir operation, flood risk mitigation,
+            and water resource management decision-making.
+        </li>
+    </ul>
+</div>
+
+<script>
+function toggleDarkMode() {
+    document.body.classList.toggle("dark");
+}
+</script>
+
+</body>
+</html>

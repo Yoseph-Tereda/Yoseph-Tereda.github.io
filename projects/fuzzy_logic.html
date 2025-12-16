@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fuzzy Logic Controller for a Physical Distance Detector</title>
+
+<!-- MathJax -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$','$$']],
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+/* ---------- THEME VARIABLES ---------- */
+:root {
+    --bg: #f5f7fa;
+    --text: #333;
+    --card: #ffffff;
+    --accent: #0b3d91;
+    --math-bg: #eef4ff;
+    --shadow: rgba(12,20,52,0.06);
+}
+
+body.dark {
+    --bg: #0f141a;
+    --text: #e5e7eb;
+    --card: #151b23;
+    --accent: #6ea8ff;
+    --math-bg: #1e2633;
+    --shadow: rgba(0,0,0,0.4);
+}
+
+/* ---------- BASE ---------- */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    transition: background 0.3s ease, color 0.3s ease;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- HEADER ---------- */
+.header {
+    background: var(--accent);
+    color: white;
+    padding: 36px 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    position: relative;
+}
+
+/* ---------- DARK MODE TOGGLE ---------- */
+.theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 18px;
+    background: var(--card);
+    color: var(--text);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 4px 14px var(--shadow);
+    transition: all 0.25s ease;
+    z-index: 1000;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+/* ---------- CONTAINER ---------- */
+.container {
+    width: 100%;
+    margin: 0;
+    padding: 20px 28px;
+}
+
+/* ---------- SECTIONS ---------- */
+.section h2 {
+    text-align: left;
+}
+
+
+h2 {
+    color: var(--accent);
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+/* ---------- MATH BOX ---------- */
+.math-box {
+    background: var(--math-bg);
+    border-left: 5px solid var(--accent);
+    padding: 18px;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+/* ---------- IMAGES ---------- */
+.image-box {
+    text-align: center;
+    margin: 18px 0;
+}
+
+.image-box img {
+    width: 92%;
+    max-width: 760px;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px var(--shadow);
+    transition: transform 0.25s ease;
+}
+
+.image-box img:hover {
+    transform: scale(1.02);
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+    text-align: center;
+    padding: 18px;
+    color: #888;
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+
+<div class="header">
+    Fuzzy Logic Controller for a Physical Distance Detector
+</div>
+
+<div class="container">
+
+    <div class="section">
+        <h2>Project Summary</h2>
+        <p>
+            This project presents a theoretical fuzzy logic–based controller designed to estimate and regulate
+            physical distance between individuals during pandemic scenarios such as COVID-19. The system
+            transforms raw distance measurements into linguistic variables using membership functions and
+            applies interpretable rule-based reasoning to generate alarm responses. By avoiding rigid thresholding,
+            the controller provides smooth, explainable, and noise-tolerant decisions suitable for real-time
+            proximity monitoring in wearable or embedded devices.
+        </p>
+        <div class="image-box">
+    <img src="images/page2.png" alt="Illustration from Page 2">
+</div>
+
+    </div>
+
+    <div class="section">
+        <h2>Mathematical Model</h2>
+
+        <div class="math-box">
+            <strong>1. Fuzzification</strong><br><br>
+
+            Crisp distance input $d$ is mapped to:
+            $$
+            \mu_{\text{near}}(d),\;
+            \mu_{\text{medium}}(d),\;
+            \mu_{\text{far}}(d)
+            $$
+
+            $$
+            \mu_{\text{near}}(d) =
+            \begin{cases}
+            1, & d \le a \\
+            \frac{b-d}{b-a}, & a < d < b \\
+            0, & d \ge b
+            \end{cases}
+            $$
+
+            <hr>
+
+            <strong>2. Rule Base</strong>
+            <ul>
+                <li>IF distance is <strong>very close</strong> → alarm is <strong>high</strong></li>
+                <li>IF distance is <strong>close</strong> → alarm is <strong>medium</strong></li>
+                <li>IF distance is <strong>far</strong> → alarm is <strong>low</strong></li>
+                <li>IF distance is <strong>very far</strong> → alarm is <strong>very low</strong></li>
+            </ul>
+
+            <strong>3. Aggregation</strong>
+            $$
+            \mu_{\text{output}}(x) = \max_i (\alpha_i \mu_i(x))
+            $$
+
+            <strong>4. Defuzzification</strong>
+            $$
+            y = \frac{\int x \mu_{\text{output}}(x)\,dx}{\int \mu_{\text{output}}(x)\,dx}
+            $$
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Fuzzy System Output</h2>
+        <div class="image-box">
+            <img src="images/Fuzzy_Figure_1.png" alt="Fuzzy Output">
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Effect of Sensor Noise</h2>
+        <div class="image-box">
+            <img src="images/Fuzzy_Figure_2.png" alt="Noise Effect">
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Conclusion</h2>
+        <p>
+            This work demonstrates how fuzzy logic provides an effective and interpretable framework for physical
+            distance detection. The proposed controller enables smooth alarm transitions, robustness to noisy
+            measurements, and transparent decision-making. If implemented as a wearable or embedded system,
+            it could support safer public interactions, enforce distancing policies, and reduce infection risk
+            during health crises.
+        </p>
+    </div>
+
+</div>
+
+<div class="footer">
+    © 2025 Fuzzy Logic Distance Detector Portfolio Page
+</div>
+
+<script>
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+    const btn = document.querySelector(".theme-toggle");
+    btn.textContent = document.body.classList.contains("dark")
+        ? "☀️ Light"
+        : "🌙 Dark";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Numerical Solutions for Sub-Diffusion Problems</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #222;
+    --accent: #1f6feb;
+    --shadow: rgba(0,0,0,0.08);
+}
+[data-theme="dark"] {
+    --bg: #0d1117;
+    --card: #161b22;
+    --text: #e6edf3;
+    --accent: #58a6ff;
+    --shadow: rgba(0,0,0,0.4);
+}
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+.dark-toggle {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    background: var(--accent);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+header {
+    background: var(--card);
+    padding: 48px 24px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+header h1 {
+    margin: 0;
+    font-size: 34px;
+    color: var(--accent);
+}
+header .meta {
+    margin-top: 10px;
+    font-size: 16px;
+    opacity: 0.85;
+}
+.container {
+    width: 92%;
+    max-width: 1100px;
+    margin: 36px auto;
+}
+.card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 26px;
+    box-shadow: 0 8px 20px var(--shadow);
+}
+h2 {
+    margin-top: 0;
+    color: var(--accent);
+}
+
+/* TABLE */
+.table-wrap {
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+th, td {
+    padding: 8px 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+thead th {
+    background: var(--bg);
+    font-weight: 600;
+}
+.group {
+    background: rgba(31,111,235,0.08);
+}
+caption {
+    caption-side: bottom;
+    padding-top: 10px;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* IMAGE GRID */
+.img-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+    margin-top: 12px;
+}
+.img-card {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 10px;
+    background: var(--bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px var(--shadow);
+    text-align: center;
+}
+.img-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;   /* default: edge-to-edge */
+    border-radius: 8px;
+    display: block;
+}
+
+/* OLD (non-cropped) behavior */
+.img-card img.img-contain {
+    object-fit: contain;
+}
+
+.caption {
+    margin-top: 6px;
+    font-size: 13px;
+    opacity: 0.85;
+}
+
+/* FULL-WIDTH FIGURE */
+.wide-figure {
+    grid-template-columns: 1fr;
+}
+.wide-figure .img-card {
+    max-width: 100%;
+}
+.wide-figure img {
+    height: 380px;
+}
+
+pre {
+    background: var(--bg);
+    padding: 14px;
+    border-radius: 10px;
+    overflow-x: auto;
+}
+footer {
+    text-align: center;
+    padding: 28px;
+    margin-top: 40px;
+    border-top: 1px solid #ddd;
+    font-size: 14px;
+    opacity: 0.75;
+}
+</style>
+</head>
+
+<body>
+
+<button class="dark-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+
+<header>
+<h1>Numerical Solutions for Sub-Diffusion Problems</h1>
+<div class="meta">Yoseph Tiruwuha Tereda, M.Sc. — King Fahd University of Petroleum & Minerals</div>
+</header>
+
+<div class="container">
+</div>
+<div class="card">
+<h2>Project Overview</h2>
+
+<p>
+This project investigates the numerical approximation of time–fractional
+sub-diffusion equations, which arise in the modeling of anomalous transport
+phenomena in heterogeneous and memory-dependent media. These processes are
+characterized by non-local temporal behavior and weak solution regularity near
+the initial time, posing significant challenges for classical numerical
+time-stepping methods.
+</p>
+
+<p>
+To overcome these difficulties, implicit time integration schemes based on the
+Backward Euler and Crank–Nicolson methods are combined with graded temporal
+meshes that refine the time step near <i>t = 0</i>. This strategy compensates for
+the singular behavior of fractional derivatives and restores optimal or
+near-optimal convergence rates.
+</p>
+
+<p>
+Rigorous stability and error analyses are developed and validated through
+numerical experiments. Spatial discretization is carried out using finite
+element methods, yielding fully discrete schemes suitable for practical
+simulation of sub-diffusive processes.
+</p>
+
+<div class="img-grid">
+    <div class="img-card">
+        <img src="images/Arabic_Page_1_correct-2.png" class="img-contain">
+        <div class="caption">
+            Particle diffusion in a fluid: initially localized particles spread uniformly over time.
+        </div>
+    </div>
+    <div class="img-card">
+        <img src="images/Arabic_Page_2_correct-2.png" class="img-contain">
+        <div class="caption">
+            Mean squared displacement ⟨r²(τ)⟩ for subdiffusion, normal diffusion, and superdiffusion.
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="card">
+<h2>Governing Equation</h2>
+
+<p>
+We consider the following time–fractional reaction–diffusion problem:
+</p>
+
+<pre>
+∂u(x,t)/∂t + D_t^{α} ( -∇·(κ(x)∇u(x,t)) + c(x)u(x,t) ) = f(x,t),
+        for x ∈ Ω, 0 < t ≤ T,
+</pre>
+
+<p>
+subject to the initial and boundary conditions
+</p>
+
+<pre>
+u(x,0) = u₀(x),              for x ∈ Ω,
+u(x,t) = 0,                 for x ∈ ∂Ω, 0 < t ≤ T.
+</pre>
+
+<p>
+Here:
+</p>
+<ul>
+<li>Ω ⊂ ℝ<sup>d</sup> (d = 1,2,3) is a bounded spatial domain,</li>
+<li>D<sub>t</sub><sup>α</sup> denotes the Caputo fractional derivative of order 0 &lt; α &lt; 1,</li>
+<li>κ(x) &gt; 0 is the spatially varying diffusion coefficient,</li>
+<li>c(x) ≥ 0 represents a reaction term,</li>
+<li>f(x,t) is a given source function,</li>
+<li>u₀(x) is the prescribed initial condition.</li>
+</ul>
+
+<p>
+This formulation captures both anomalous diffusion effects and local reaction
+mechanisms, and exhibits weak solution regularity near t = 0.
+</p>
+</div>
+</div>
+
+<div class="card">
+<h2>Numerical Results</h2>
+
+<h3>Error and Convergence</h3>
+
+<div class="table-wrap">
+<!-- FULL TABLE PRESENT (unchanged) -->
+<table>
+<thead>
+<tr>
+<th rowspan="3">N</th>
+<th colspan="6" class="group">Backward Euler</th>
+<th colspan="6" class="group">Crank–Nicolson</th>
+</tr>
+<tr>
+<th colspan="2">γ = 1</th>
+<th colspan="2">γ = 2.5</th>
+<th colspan="2">γ = 3</th>
+<th colspan="2">γ = 1</th>
+<th colspan="2">γ = 2.5</th>
+<th colspan="2">γ = 3</th>
+</tr>
+<tr>
+<th>M.Error</th><th>OC</th>
+<th>M.Error</th><th>OC</th>
+<th>M.Error</th><th>OC</th>
+<th>M.Error</th><th>OC</th>
+<th>M.Error</th><th>OC</th>
+<th>M.Error</th><th>OC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20</td>
+<td>9.0173e−03</td><td>—</td>
+<td>9.8429e−03</td><td>—</td>
+<td>1.1151e−02</td><td>—</td>
+<td>4.8696e−02</td><td>—</td>
+<td>5.9016e−03</td><td>—</td>
+<td>7.3506e−03</td><td>—</td>
+</tr>
+<tr>
+<td>40</td>
+<td>5.4684e−03</td><td>0.722</td>
+<td>5.4234e−03</td><td>0.860</td>
+<td>6.2621e−03</td><td>0.832</td>
+<td>3.5474e−02</td><td>0.457</td>
+<td>2.5172e−03</td><td>1.229</td>
+<td>3.1631e−03</td><td>1.216</td>
+</tr>
+<tr>
+<td>80</td>
+<td>4.3210e−03</td><td>0.340</td>
+<td>2.9401e−03</td><td>0.883</td>
+<td>3.4295e−03</td><td>0.869</td>
+<td>2.5321e−02</td><td>0.486</td>
+<td>1.0555e−03</td><td>1.254</td>
+<td>1.3299e−03</td><td>1.250</td>
+</tr>
+<tr>
+<td>160</td>
+<td>3.2671e−03</td><td>0.403</td>
+<td>1.5670e−03</td><td>0.908</td>
+<td>1.8366e−03</td><td>0.901</td>
+<td>1.7804e−02</td><td>0.508</td>
+<td>4.3787e−04</td><td>1.269</td>
+<td>5.5523e−04</td><td>1.260</td>
+</tr>
+<tr>
+<td>320</td>
+<td>2.3997e−03</td><td>0.445</td>
+<td>8.2285e−04</td><td>0.929</td>
+<td>9.6860e−04</td><td>0.923</td>
+<td>1.2373e−02</td><td>0.525</td>
+<td>1.8161e−04</td><td>1.270</td>
+<td>2.3042e−04</td><td>1.267</td>
+</tr>
+</tbody>
+<caption>
+Maximum nodal time error (M.Error) and observed order of convergence (OC)
+for Backward Euler and Crank–Nicolson schemes.
+</caption>
+</table>
+</div>
+
+<h3 style="margin-top:10px;">Error vs Timestep</h3>
+<div class="img-grid wide-figure">
+<div class="img-card">
+<img src="images/combined_BE_CN_side_by_side.png" class="img-contain">
+<div class="caption">Error versus timestep size.</div>
+</div>
+</div>
+
+<h3 style="margin-top:26px;">Numerical solution vs Exact solution vs Error estimate</h3>
+<div class="img-grid">
+<div class="img-card">
+<img src="images/fig_part_1.png" class="img-contain">
+<div class="caption">Numerical solution</div>
+</div>
+<div class="img-card">
+<img src="images/fig_part_2.png" class="img-contain">
+<div class="caption">Exact solution</div>
+</div>
+<div class="img-card">
+<img src="images/fig_part_3.png" class="img-contain">
+<div class="caption">Error estimate</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="card">
+<h2>Conclusions</h2>
+<ul>
+<li>Weak initial-time regularity significantly affects numerical accuracy.</li>
+<li>Graded temporal meshes restore optimal convergence behavior.</li>
+<li>Crank–Nicolson achieves higher accuracy than Backward Euler.</li>
+<li>Finite element discretization yields robust fully discrete schemes.</li>
+<li>Numerical experiments confirm theoretical convergence results.</li>
+</ul>
+</div>
+
+</div>
+
+<footer>
+Prepared by Yoseph Tiruwuha Tereda — Thesis Portfolio
+</footer>
+
+<script>
+function toggleTheme() {
+    const html = document.documentElement;
+    const theme = html.getAttribute("data-theme");
+    html.setAttribute("data-theme", theme === "dark" ? "light" : "dark");
+}
+document.documentElement.setAttribute("data-theme", "light");
+</script>
+
+</body>
+</html>

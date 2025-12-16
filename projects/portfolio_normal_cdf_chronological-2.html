@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Very Simply Explicitly Invertible Approximation for the Normal CDF</title>
+
+<!-- MathJax -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #ffffff; color: #222; transition: background 0.3s, color 0.3s; }
+.header {
+  background: #1e4da8;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+}
+.toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1e4da8;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.toggle-btn:hover { opacity: 0.9; }
+h2 { color: #003366; margin-top: 30px; }
+section { padding: 25px; max-width: 900px; margin: auto; }
+.equation { text-align: center; font-size: 1.15rem; margin: 18px 0; }
+.small { color: #444; font-size: 0.95rem; }
+
+/* Dark mode */
+body.dark {
+  background: #121212;
+  color: #e0e0e0;
+}
+body.dark .header {
+  background: #0d2c66;
+}
+body.dark h2 { color: #9fc5ff; }
+body.dark .small { color: #bbbbbb; }
+body.dark .toggle-btn {
+  background: #1e4da8;
+  color: #ffffff;
+}
+section h2,
+section p {
+  text-align: left;
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Very Simply Explicitly Invertible Approximation for the Normal CDF</h1>
+  <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+</div>
+
+
+<h2>Project Overview</h2>
+<p style="margin-left: 20px;">
+This project presents a new, very simply explicitly invertible approximation for the standard normal 
+cumulative distribution function (CDF). The goal is to obtain a mathematical model that is analytically invertible, 
+enabling efficient Gaussian-based transformations in simulation, data science, and engineering workflows.
+</p>
+
+<p class="small" style="margin-left: 20px;">
+The work includes formulation of the approximation, nonlinear least-squares parameter fitting, error analysis, and evaluation against existing approximations.
+</p>
+
+<figure style="text-align:center; margin-top:25px;">
+  <img src="images/Page_1-2.png"
+       alt="Normal PDF and CDF illustration"
+       style="max-width:40%; height:auto; border-radius:6px;">
+  <figcaption style="margin-top:10px; font-size:0.9rem; color:#555;">
+    Figure 1: Standard normal probability density function (PDF, blue) and cumulative distribution function (CDF, red).
+  </figcaption>
+</figure>
+
+
+
+<h2>Proposed Approximation Function</h2>
+<p style="margin-left: 20px;">
+The paper introduces a deliberately simple, explicitly invertible approximation based on five adjustable parameters.
+</p>
+
+<div class="equation">
+\[
+F(z;\mathbf{c}) = \Bigg( 1 + c_1 \Big[\, \ln\big(1 + e^{-z / c_5 + c_3}\big) \,\Big]^{c_2} \Bigg)^{-c_4}
+\]
+</div>
+
+<p class="small" style="margin-left: 20px;">
+Here \(\mathbf{c}=(c_1,c_2,c_3,c_4,c_5)\) are design parameters chosen by optimization. The inner \(\ln(1+e^{\cdot})\) term provides smooth saturation similar to a softplus/logistic transform, the power \(c_2\) and multiplier \(c_1\) allow flexible shaping, and the outer exponent \(-c_4\) maps the expression into \([0,1]\).
+</p>
+
+
+
+<h2>Least–Squares Parameter Estimation</h2>
+<p style="margin-left: 20px;">
+Parameters are obtained by minimizing the ordinary least-squares residual between the approximation and the true standard normal CDF values at sampled points \(z_i\):
+</p>
+
+<div class="equation">
+\[
+\min_{\mathbf{c}} \; J(\mathbf{c}) \;=\; \sum_{i=1}^N \big[\, F(z_i;\mathbf{c}) - \Phi(z_i) \,\big]^2
+\]
+</div>
+
+<p class="small" style="margin-left: 20px;">
+In practice the fit is performed for \(z\ge 0\) and extended to negative \(z\) via the symmetry \(\Phi(-z)=1-\Phi(z)\). Constrained fits enforcing \(F(0;\mathbf{c})=0.5\) were also considered to preserve the CDF midpoint exactly. Global optimization (multiple random starts) was used to avoid poor local minima.
+</p>
+
+
+
+<h2>Numerical Results</h2>
+
+<p class="small" style="margin-left: 20px;">
+The proposed approximation was fit to MATLAB’s built-in normal CDF using both GlobalSearch (GS)
+and BARON (BA). Table reports the best-fit parameter vectors for unconstrained and constrained
+cases, together with the residual, mean absolute error (MAE), and the location of the MAE.
+Constrained fits enforce the condition \(F(0;\mathbf{c}) = 0.5\).
+</p>
+
+<div style="overflow-x:auto; margin-top:20px;">
+<table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+  <thead>
+    <tr style="background:#f0f4fa;">
+      <th style="border:1px solid #ccc; padding:8px;">Solver</th>
+      <th style="border:1px solid #ccc; padding:8px;">c₁</th>
+      <th style="border:1px solid #ccc; padding:8px;">c₂</th>
+      <th style="border:1px solid #ccc; padding:8px;">c₃</th>
+      <th style="border:1px solid #ccc; padding:8px;">c₄</th>
+      <th style="border:1px solid #ccc; padding:8px;">c₅</th>
+      <th style="border:1px solid #ccc; padding:8px;">Residual</th>
+      <th style="border:1px solid #ccc; padding:8px;">MAE</th>
+      <th style="border:1px solid #ccc; padding:8px;">MAE Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border:1px solid #ccc; padding:8px;">GS</td>
+      <td style="border:1px solid #ccc; padding:8px;">0.00165264063</td>
+      <td style="border:1px solid #ccc; padding:8px;">3.41198528753</td>
+      <td style="border:1px solid #ccc; padding:8px;">3.27828832050</td>
+      <td style="border:1px solid #ccc; padding:8px;">7.36525492695</td>
+      <td style="border:1px solid #ccc; padding:8px;">0.82347307439</td>
+      <td style="border:1px solid #ccc; padding:8px;">1.33e−04</td>
+      <td style="border:1px solid #ccc; padding:8px;">3.39e−05</td>
+      <td style="border:1px solid #ccc; padding:8px;">0.00</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #ccc; padding:8px;">GS†</td>
+      <td style="border:1px solid #ccc; padding:8px;">0.00141349455</td>
+      <td style="border:1px solid #ccc; padding:8px;">3.14347999888</td>
+      <td style="border:1px solid #ccc; padding:8px;">3.12017824876</td>
+      <td style="border:1px solid #ccc; padding:8px;">13.4751284391</td>
+      <td style="border:1px solid #ccc; padding:8px;">0.80551656318</td>
+      <td style="border:1px solid #ccc; padding:8px;">2.73e−04</td>
+      <td style="border:1px solid #ccc; padding:8px;">5.08e−05</td>
+      <td style="border:1px solid #ccc; padding:8px;">3.02</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #ccc; padding:8px;">BA†</td>
+      <td style="border:1px solid #ccc; padding:8px;">0.00161826615</td>
+      <td style="border:1px solid #ccc; padding:8px;">3.38692114553</td>
+      <td style="border:1px solid #ccc; padding:8px;">3.26862849061</td>
+      <td style="border:1px solid #ccc; padding:8px;">7.80500878654</td>
+      <td style="border:1px solid #ccc; padding:8px;">0.82116764005</td>
+      <td style="border:1px solid #ccc; padding:8px;">1.42e−04</td>
+      <td style="border:1px solid #ccc; padding:8px;">2.73e−05</td>
+      <td style="border:1px solid #ccc; padding:8px;">0.17</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p class="small" style="margin-top:20px;">
+Figure illustrates the absolute approximation error for the constrained procedures using GlobalSearch and BARON; only BARON achieves errors on the order of \(10^{-5}\), resulting in the smallest MAE.
+</p>
+
+<figure style="text-align:center; margin-top:25px;">
+  <img src="images/Page_with_Figure_2_UNCROPPED.png"
+       alt="Absolute error comparison using GlobalSearch and BARON"
+       style="max-width:100%; height:auto; border-radius:6px;">
+  <figcaption style="margin-top:10px; font-size:0.9rem; color:#555;">
+    Figure: Absolute errors for the constrained procedures: (a) fit using GlobalSearch and (b) fit using BARON.
+  </figcaption>
+</figure>
+
+
+
+
+<h2>Key Contributions</h2>
+<ul>
+<li>Formulated a compact, explicitly invertible five-parameter approximation.</li>
+<li>Designed and executed a least-squares fitting procedure with global search and BARON to find robust parameter sets.</li>
+<li>Performed sensitivity analysis to identify dominant parameters (c3 and c5).</li>
+<li>Reported multiple fits (constrained and unconstrained) with MAE down to 2.73e–05.</li>
+<li>Validated inverse accuracy and demonstrated competitive runtime in an application example.</li>
+</ul>
+
+
+
+<h2>Applications</h2>
+<p style="margin-left: 20px;">
+This approximation is suitable for Monte Carlo simulation, random-variable transformations requiring an explicit inverse, correlation-preserving stochastic modeling, and other contexts where fast, invertible Gaussian CDF evaluations are needed.
+</p>
+
+
+<script>
+function toggleDarkMode() {
+  document.body.classList.toggle('dark');
+}
+</script>
+
+</body>
+</html>
