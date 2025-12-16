@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoseph Tereda — Numerical Simulation & Machine Learning Portfolio</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6f8;
+  color: #222;
+}
+
+header {
+  background: #000000; /* black */
+  color: white;
+  text-align: center;
+  padding: 28px 20px;
+}
+
+header h1 { margin: 0; }
+header a { color: #eaf2ff; text-decoration: none; margin: 0 8px; font-weight: bold; }
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 24px;
+}
+
+h2 {
+  margin-top: 42px;
+  border-bottom: 2px solid #1f6feb;
+  padding-bottom: 6px;
+}
+
+/* PROFILE + VIDEO */
+.profile-row {
+  display: flex;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.profile-text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.videos-container {
+  flex: 1;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.video-container video {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* PROJECT GRID */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.project-card {
+  background: white;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease;
+}
+
+.project-card:hover { transform: translateY(-6px); }
+
+.project-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.project-card h3 { margin: 14px 0 6px; }
+
+.project-card a {
+  display: inline-block;
+  margin-top: 8px;
+  color: #1f6feb;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* SKILLS */
+.skills span {
+  display: inline-block;
+  background: #1f6feb;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin: 4px;
+  font-size: 0.85rem;
+}
+
+/* BUTTON */
+.btn {
+  display: inline-block;
+  background: #1f6feb;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .profile-row { flex-direction: column; }
+  .project-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .project-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Yoseph Tereda</h1>
+  <p>Numerical Simulation • Machine Learning • Applied AI</p>
+  <p>
+    <a href="https://www.linkedin.com/in/yoseph-tereda-4227a6152/" target="_blank">LinkedIn</a> |
+    <a href="https://github.com/Yoseph-Tereda" target="_blank">GitHub</a>
+  </p>
+</header>
+
+<div class="container">
+
+<!-- PROFILE -->
+<h2>Profile & Simulation</h2>
+<div class="profile-row">
+  <div class="profile-text">
+    <p>
+  Computational Scientist and Machine Learning Practitioner with dual M.Sc. degrees in
+  Mathematics and Computer Science, specializing in numerical simulation, scientific
+  computing, and data-driven modeling. Strong background in PDE-based modeling, finite
+  element and finite difference methods, numerical linear algebra, and high-performance
+  computing. Experienced in developing and applying deep learning models, including
+  <strong>CNN</strong>, <strong>LSTM</strong>, and <strong>Bi-LSTM</strong> architectures, for spatiotemporal analysis and time-series
+  forecasting. Proficient in <strong>Python</strong>, <strong>MATLAB</strong>, <strong>C++</strong>, <strong>PyTorch</strong>, and <strong>TensorFlow</strong>, with expertise
+  in model development, validation, tuning, and optimization.
+  
+  Passionate about big data analysis and applying machine learning models to extract
+  insights, build scalable solutions, and deliver measurable business and scientific
+  value. In addition, passionate about bridging numerical methods and modern AI to
+  solve complex real-world problems in engineering and applied sciences.
+</p>
+  </div>
+
+  <div class="videos-container">
+    <div class="video-container">
+      <video controls>
+        <source src="videos/simulation-demo.mp4" type="video/mp4">
+      </video>
+      <p>
+        <a href="https://github.com/Yoseph-Tereda/cardiac-electrophysilogy/tree/main/spiral_wave" target="_blank" style="text-decoration:none; color:#3498db; font-weight:bold;">
+          View Simulation Code
+        </a>
+      </p>
+    </div>
+    <div class="video-container">
+      <video controls>
+        <source src="videos/isosurface_thick_animation2.mp4" type="video/mp4">
+      </video>
+      <p>
+        <a href="https://github.com/Yoseph-Tereda/cardiac-electrophysilogy/tree/main/scroll_wave" target="_blank" style="text-decoration:none; color:#3498db; font-weight:bold;">
+          View Simulation Code
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<h2>Selected Projects</h2>
+<div class="project-grid">
+
+  <div class="project-card">
+    <img src="projects/images/page_16_img_1-2.png">
+    <h3>Cardiac Electrophysiology Simulation</h3>
+    <a href="projects/portfolio_thesis.html">View Project →</a>
+  </div>
+
+  <div class="project-card">
+    <img src="projects/images/page2_image_1.png">
+    <h3>Reservoir Outflow Prediction (CNN–BiLSTM)</h3>
+    <a href="projects/resrerv_port.html">View Project →</a>
+  </div>
+
+  <div class="project-card">
+    <img src="projects/images/Page_1-2.png">
+    <h3>Invertible Normal CDF Approximation</h3>
+    <a href="projects/portfolio_normal_cdf_chronological-2.html">View Project →</a>
+  </div>
+
+  <div class="project-card">
+    <img src="projects/images/page2.png">
+    <h3>Fuzzy Logic Distance Detector</h3>
+    <a href="projects/fuzzy_logic.html">View Project →</a>
+  </div>
+
+  <div class="project-card">
+    <img src="projects/images/page3_image-2.png">
+    <h3>Particle Pair Diffusion (Turbulence)</h3>
+    <a href="projects/particle_dust_paper.html">View Project →</a>
+  </div>
+
+  <div class="project-card">
+    <img src="projects/images/Arabic_Page_1_correct-2.png">
+    <h3>Fractional Sub-Diffusion Solver</h3>
+    <a href="projects/portofilia_kfupm.html">View Project →</a>
+  </div>
+
+</div>
+
+<!-- SKILLS -->
+<h2>Skills, Frameworks & Technology</h2>
+
+<p>
+<strong>TL;DR:</strong> Python data stack, numerical simulation, machine learning
+(scikit-learn), deep learning (TensorFlow, Keras; CNN, RNN, LSTM, Bi-LSTM),
+feature engineering, model evaluation, and optimization.
+</p>
+
+<div class="skills">
+
+<span>Python</span>
+<span>MATLAB</span>
+<span>C++</span>
+<span>SQL</span>
+<span>Bash</span>
+<span>Git</span>
+<span>GitHub</span>
+
+<span>Pandas</span>
+<span>NumPy</span>
+<span>SciPy</span>
+<span>Matplotlib</span>
+<span>Seaborn</span>
+<span>Plotly</span>
+
+<span>scikit-learn</span>
+<span>Supervised Learning</span>
+<span>Unsupervised Learning</span>
+<span>Classification</span>
+<span>Regression</span>
+<span>Clustering</span>
+<span>Time Series Analysis</span>
+
+<span>TensorFlow</span>
+<span>Keras</span>
+<span>PyTorch</span>
+<span>CNN</span>
+<span>RNN</span>
+<span>LSTM</span>
+<span>Bi-LSTM</span>
+
+<span>Feature Engineering</span>
+<span>Hyperparameter Tuning</span>
+<span>Model Selection</span>
+<span>Model Evaluation</span>
+<span>Optimization</span>
+<span>Interpretability</span>
+
+<span>Numerical Methods</span>
+<span>Finite Difference Methods</span>
+<span>Finite Element Methods</span>
+<span>PDE-Based Modeling</span>
+<span>Scientific Computing</span>
+
+</div>
+
+<!-- OPEN SOURCE -->
+<h2>Open Source Contributions</h2>
+<ul>
+  <li><strong>Ploomber</strong> — Reproducible ML pipelines</li>
+  <li><strong>JupySQL</strong> — SQL workflows in Jupyter</li>
+  <li><strong>Fairlearn</strong> — Fairness & responsible AI</li>
+</ul>
+
+<!-- PUBLICATIONS -->
+<h2>Publications & Thesis</h2>
+<ul>
+  <li>
+    <strong>Journal Article (AIMS Mathematics)</strong> —
+    <a href="https://www.aimspress.com/article/doi/10.3934/math.2022648?viewType=HTML" target="_blank">
+      View Publication
+    </a>
+  </li>
+  <li>
+    <strong>Conference Paper (EGU)</strong> —
+    <a href="https://meetingorganizer.copernicus.org/EGU2016/EGU2016-7264.pdf" target="_blank">
+      View PDF
+    </a>
+  </li>
+  <li>
+    <strong>Numerical Solutions for Sub-Diffusion Problems (KFUPM)</strong> —
+    <a href="https://eprints.kfupm.edu.sa/id/eprint/140029/2/Numerical_Solutions_For_Sub-Diffusion_Problems.pdf" target="_blank">
+      View PDF
+    </a>
+  </li>
+  <li>
+    <strong>M.Sc. Thesis, University of Saskatchewan</strong> —
+    <a href="https://harvest.usask.ca/server/api/core/bitstreams/ffd11c9f-73ac-4afc-a722-25aa67f042ec/content" target="_blank">
+      View Thesis
+    </a>
+  </li>
+</ul>
+
+<!-- RESUME -->
+<h2>Resume</h2>
+<p>Click the button below to download my resume:</p>
+<a href="Yoseph_Tereda_Resume.pdf" class="btn" download>⬇ Download Resume</a>
+
+<!-- OUTSIDE WORK -->
+<h2>Outside of Work</h2>
+<p>
+I enjoy collaborating with others on meaningful projects,
+mentoring, and exploring new ideas that connect mathematics, computation, and
+real-world impact.
+</p>
+
+<!-- CONTACT -->
+<h2>Contact</h2>
+<p>
+📧 ytt831@usask.ca<br>
+🔗 <a href="https://www.linkedin.com/in/yoseph-tereda-4227a6152/" target="_blank">LinkedIn</a><br>
+</p>
+
+</div>
+</body>
+</html>
